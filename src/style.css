@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  @apply bg-gradient-radial;
+  @apply text-text-secondary;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.day-card-content table {
+  @apply w-full border-collapse;
+}
+
+.day-card-content th,
+.day-card-content td {
+  @apply px-4 py-3 text-left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.day-card-content th {
+  @apply text-text-muted text-xs uppercase tracking-wider font-medium;
+}
+
+.day-card-content td {
+  @apply text-text-secondary;
+}
+
+.day-card-content tr:last-child td {
+  border-bottom: none;
+}
+
+.day-card-content tr:hover td {
+  @apply bg-white/5;
+}
+
+/* Expand icon animation */
+.expand-icon {
+  transition: transform 0.3s ease;
+}
+
+.day-card.expanded .expand-icon {
+  transform: rotate(180deg);
+}
+
+/* Card content animation */
+.day-card-content {
+  transition: max-height 0.4s ease;
+}
+
+/* Markdown content styling */
+.day-card-content h3 {
+  @apply text-text-primary text-lg font-semibold mb-4;
+}
+
+.day-card-content ul {
+  @apply list-none p-0 m-0;
+}
+
+.day-card-content ul li {
+  @apply py-2 leading-relaxed;
+}
+
+.day-card-content p {
+  @apply text-text-muted leading-relaxed italic;
+}
