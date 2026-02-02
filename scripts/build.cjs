@@ -32,28 +32,41 @@ async function parseFrontmatter(content) {
   }
 }
 
+async function findMdFiles(dir, files = []) {
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      await findMdFiles(fullPath, files);
+    } else if (entry.isFile() && entry.name.endsWith('.md') && entry.name !== 'manifest.json') {
+      files.push(fullPath);
+    }
+  }
+  return files;
+}
+
 async function buildManifest() {
-  const dataDir = path.join(__dirname, '..', 'data');
+  const dataDir = path.join(__dirname, '..', 'log_data');
   const manifestFile = path.join(dataDir, 'manifest.json');
 
   try {
-    const files = await fs.readdir(dataDir);
-    const mdFiles = files.filter(f => f.endsWith('.md') && f !== 'manifest.json');
+    // 递归查找所有md文件
+    const mdFiles = await findMdFiles(dataDir);
 
     const logs = [];
 
     // 遍历所有md文件，按日期排序（最新的在前）
-    for (const file of mdFiles.sort((a, b) => b.localeCompare(a))) {
-      const filePath = path.join(dataDir, file);
+    for (const filePath of mdFiles.sort((a, b) => b.localeCompare(a))) {
       const content = await fs.readFile(filePath, 'utf-8');
 
       const parsed = await parseFrontmatter(content);
       if (!parsed) continue;
 
       if (parsed.frontmatter) {
+        const relativePath = path.relative(dataDir, filePath);
         logs.push({
-          date: parsed.frontmatter.date || file.replace('.md', ''),
-          file: file,
+          date: parsed.frontmatter.date || path.basename(filePath, '.md'),
+          file: relativePath,
           content: parsed.body
         });
       }
