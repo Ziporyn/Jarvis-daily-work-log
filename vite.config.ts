@@ -11,6 +11,14 @@ interface LogEntry {
 
 // https://vite.dev/config/
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        articles: path.resolve(__dirname, 'articles.html')
+      }
+    }
+  },
   plugins: [
     react(),
     {
@@ -86,6 +94,23 @@ export default defineConfig({
         )
 
         console.log('✓ Generated manifest.json with', logs.length, 'log entries')
+      }
+    },
+    {
+      name: 'copy-articles-data',
+      writeBundle() {
+        const publicDataDir = path.resolve(__dirname, 'public/data')
+        const articlesSrc = path.join(publicDataDir, 'articles.json')
+
+        // Copy articles.json if it exists
+        if (fs.existsSync(articlesSrc)) {
+          const distDataDir = path.resolve(__dirname, 'dist/data')
+          if (!fs.existsSync(distDataDir)) {
+            fs.mkdirSync(distDataDir, { recursive: true })
+          }
+          fs.copyFileSync(articlesSrc, path.join(distDataDir, 'articles.json'))
+          console.log('✓ Copied articles.json to dist/data')
+        }
       }
     }
   ]

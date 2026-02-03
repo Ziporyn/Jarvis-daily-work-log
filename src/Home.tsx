@@ -79,7 +79,7 @@ function Home() {
 
   return (
     <div className="max-w-[1024px] mx-auto">
-      <Header lastUpdated={formatDate(manifest.lastUpdated)} />
+      <Header lastUpdated={formatDate(manifest.lastUpdated)} currentPage="log" />
 
       <div id="logs-container">
         {recentLogs.map((log, index) => (
