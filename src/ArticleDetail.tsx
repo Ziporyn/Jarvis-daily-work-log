@@ -7,11 +7,6 @@ interface ArticleContent {
   content: string
 }
 
-interface ArticleManifest {
-  lastUpdated: string
-  content: ArticleContent
-}
-
 function ArticleDetail() {
   const { id } = useParams<{ id: string }>()
   const [article, setArticle] = useState<ArticleContent | null>(null)
@@ -33,8 +28,8 @@ function ArticleDetail() {
         }
         return res.json()
       })
-      .then((data: ArticleManifest) => {
-        setArticle(data.content)
+      .then((data: ArticleContent) => {
+        setArticle(data)
         setLoading(false)
       })
       .catch(err => {
@@ -53,6 +48,64 @@ function ArticleDetail() {
     })
   }
 
+  // Simple markdown to HTML converter
+  const renderMarkdown = (content: string) => {
+    let html = content
+
+    // Headers
+    html = html.replace(/^#### (.+)$/gm, '<h4 class="text-lg font-bold text-text-primary mt-4 mb-2">$1</h4>')
+    html = html.replace(/^### (.+)$/gm, '<h3 class="text-xl font-bold text-text-primary mt-6 mb-3">$1</h3>')
+    html = html.replace(/^## (.+)$/gm, '<h2 class="text-2xl font-bold text-text-primary mt-8 mb-4">$1</h2>')
+    html = html.replace(/^# (.+)$/gm, '<h1 class="text-3xl font-bold text-text-primary mt-10 mb-6">$1</h1>')
+
+    // Bold and italic
+    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong class="font-bold">$1</strong>')
+    html = html.replace(/\*([^*]+)\*/g, '<em class="italic">$1</em>')
+
+    // Inline code
+    html = html.replace(/`([^`]+)`/g, '<code class="bg-black/20 px-2 py-1 rounded text-sm font-mono">$1</code>')
+
+    // Code blocks
+    html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre class="bg-black/30 p-4 rounded-lg overflow-x-auto my-4 text-sm"><code>$2</code></pre>')
+
+    // Tables
+    html = html.replace(/\|(.+)\|/g, (match) => {
+      const rows = match.trim().split('\n')
+      if (rows.length < 2) return match
+
+      let tableHtml = '<div class="overflow-x-auto my-4"><table class="min-w-full border-collapse">'
+      rows.forEach((row, index) => {
+        const cells = row.split('|').filter(c => c.trim())
+        tableHtml += '<tr>'
+        cells.forEach(cell => {
+          const tag = index === 0 ? 'th' : 'td'
+          tableHtml += `<${tag} class="border border-white/10 px-4 py-2 text-sm">${cell.trim()}</${tag}>`
+        })
+        tableHtml += '</tr>'
+      })
+      tableHtml += '</table></div>'
+      return tableHtml
+    })
+
+    // Lists
+    html = html.replace(/^- (.+)$/gm, '<li class="ml-6 list-disc text-text-muted mb-2">$1</li>')
+
+    // Wrap lists
+    html = html.replace(/(<li[^>]*>.*<\/li>\n?)+/g, '<ul class="my-4">$&</ul>')
+
+    // Paragraphs
+    html = html.split('\n\n').map(p => {
+      p = p.trim()
+      if (!p) return ''
+      if (p.startsWith('<h') || p.startsWith('<pre') || p.startsWith('<ul') || p.startsWith('<div')) {
+        return p
+      }
+      return `<p class="text-text-muted leading-relaxed mb-4">${p}</p>`
+    }).join('\n')
+
+    return html
+  }
+
   if (loading) {
     return (
       <div className="max-w-[1024px] mx-auto">
@@ -68,55 +121,16 @@ function ArticleDetail() {
         <div className="text-center text-text-muted py-12">
           <div className="text-6xl mb-4">😕</div>
           <div className="text-lg mb-2">加载失败</div>
-          <div className="text-sm">{error || '文章不存在'}</div>
+          <div className="text-sm mb-6">{error || '文章不存在'}</div>
           <Link
             to="/articles"
-            className="inline-block mt-6 px-6 py-3 bg-primary/20 hover:bg-primary/30 border border-primary/40 rounded-full text-primary font-medium transition-all duration-300"
+            className="inline-block px-6 py-3 bg-primary/20 hover:bg-primary/30 border border-primary/40 rounded-full text-primary font-medium transition-all duration-300"
           >
             返回文章列表
           </Link>
         </div>
       </div>
     )
-  }
-
-  // Parse markdown content
-  const renderMarkdown = (content: string) => {
-    // Simple markdown renderer
-    let html = content
-
-    // Code blocks
-    html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre class="bg-black/30 p-4 rounded-lg overflow-x-auto my-4"><code>$2</code></pre>')
-
-    // Inline code
-    html = html.replace(/`([^`]+)`/g, '<code class="bg-black/20 px-2 py-1 rounded text-sm">$1</code>')
-
-    // Bold
-    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-
-    // Italic
-    html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>')
-
-    // Headers
-    html = html.replace(/^### (.+)$/gm, '<h3 class="text-lg font-bold text-text-primary mt-6 mb-3">$1</h3>')
-    html = html.replace(/^## (.+)$/gm, '<h2 class="text-xl font-bold text-text-primary mt-8 mb-4">$1</h2>')
-    html = html.replace(/^# (.+)$/gm, '<h1 class="text-3xl font-bold text-text-primary mt-10 mb-6">$1</h1>')
-
-    // Lists
-    html = html.replace(/^- (.+)$/gm, '<li class="ml-6 list-disc">$1</li>')
-
-    // Paragraphs
-    html = html.split('\n\n').map(p => {
-      if (p.startsWith('<h') || p.startsWith('<pre') || p.startsWith('<li')) {
-        return p
-      }
-      if (p.trim()) {
-        return `<p class="text-text-muted leading-relaxed mb-4">${p.trim()}</p>`
-      }
-      return ''
-    }).join('\n')
-
-    return html
   }
 
   return (
