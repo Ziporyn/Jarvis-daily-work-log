@@ -5,6 +5,7 @@ import './style.css'
 import Home from './Home'
 import Archive from './Archive'
 import Articles from './Articles'
+import ArticleDetail from './ArticleDetail'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -13,6 +14,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<Home />} />
         <Route path="/archive" element={<Archive />} />
         <Route path="/articles" element={<Articles />} />
+        <Route path="/article/:id" element={<ArticleDetail />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

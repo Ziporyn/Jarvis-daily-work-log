@@ -1,16 +1,19 @@
-[
-  {
-    "id": "awesome-ai-research-writing",
-    "title": "Awesome AI Research Writing - AI研究写作资源集合",
-    "summary": "这是一个专注于提升AI研究写作效率的开源资源集合项目，旨在解决学术圈中prompt工程和agent skills使用门槛的不平等问题。项目主要包含两部分：Part I提供15个经过实战打磨的写作Prompt模板，涵盖中英互译、润色、缩写扩写、逻辑检查、去AI味、图表生成等完整写作流程；Part II提供5个Agent Skills包，包括20-ml-paper-writing（面向NeurIPS/ICML/ICLR等顶会的完整论文写作）、humanizer（去除AI写作痕迹）、docx（Word文档编辑）、doc-coauthoring（分阶段协作）、canvas-design（论文图表设计）。所有Prompt均来自MSRA、Seed、SH AI Lab等顶尖研究机构和北大、中科大、上交等高校的实战经验，开箱即用，无需重复造轮子。特点包括实战打磨、开箱即用、持续更新。项目还提供了模型选择建议（推荐Gemini-3-pro/flash用于写作，Claude-4.5用于代码）和详细的Skills配置教程，帮助科研人员将精力留给真正的科研而非prompt调试。",
-    "date": "2026-02-03T12:40:00.000Z",
-    "tags": ["AI写作", "研究工具", "Prompt模板", "Agent Skills", "学术写作"]
-  },
-  {
-    "id": "clawdbot-watchdog",
-    "title": "ClawDBot Watchdog 项目评价",
-    "summary": "这是一个监控开源工具项目的Python应用，使用APScheduler进行定时任务调度，支持邮件通知和Web Dashboard。项目采用MIT License，代码结构清晰，但存在一些改进空间。优点包括功能完整、代码可读性好、使用现代Python库。改进点包括错误处理不够完善、缺少单元测试、文档不够详细、配置项硬编码等问题。建议改进：添加try-except包裹关键代码块、编写单元测试、完善README文档、将配置项提取到配置文件、添加日志系统、考虑使用Docker容器化部署。",
-    "date": "2026-02-02T20:57:00.000Z",
-    "tags": ["代码评价", "Python", "开源项目", "监控系统"]
-  }
-]
+{
+  "lastUpdated": "2026-02-03T12:47:48.410Z",
+  "articles": [
+    {
+      "id": "awesome-ai-research-writing",
+      "title": "Awesome AI Research Writing - AI研究写作资源集合",
+      "summary": "这是一个专注于提升AI研究写作效率的开源资源集合项目，旨在解决学术圈中prompt工程和agent skills使用门槛的不平等问题。\n\n## 项目背景\n\n在学术圈，prompt工程正在成为一种\"隐性资源\"——顶尖研究组有完善的模板库，而大多数人还在从零摸索。更进一步，agent skills作为新兴技术能更强大地助力论文写作，但由于存在一定使用门槛，大部分人还不知道如何上手。这个项目不想看到这种不平等继续。\n\n## 项目特点\n\n### 🔬 实战打磨\n来自一线科研人员的真实使用场景，调研了MSRA、Seed、SH AI Lab等顶尖研究机构的研究员，以及北大、中科大、上交的硕博同学。",
+      "date": "2026-02-03",
+      "tags": []
+    },
+    {
+      "id": "clawdbot-watchdog",
+      "title": "ClawDBot Watchdog 项目评价",
+      "summary": "这是一个监控开源工具项目的Python应用，使用APScheduler进行定时任务调度，支持邮件通知和Web Dashboard可视化界面。项目采用MIT License开源。\n\n## 技术栈\n\n- Python\n- APScheduler（定时任务调度）\n- Web Dashboard\n- 邮件通知功能\n\n## 优点\n\n### 功能完整\n项目提供了完整的监控功能，包括定时检查、邮件通知、Web界面展示等核心功能，能够满足基本的监控需求。\n\n### 代码可读性好\n代码结构清晰，命名规范，便于理解和维护。整体架构设计合理，模块划分清晰。\n\n### 使用现代Python库",
+      "date": "2026-02-02",
+      "tags": []
+    }
+  ]
+}

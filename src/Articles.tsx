@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Header from './components/Header'
 
 interface Article {
@@ -9,16 +10,26 @@ interface Article {
   tags: string[]
 }
 
+interface ArticlesManifest {
+  lastUpdated: string
+  articles: Article[]
+}
+
 function Articles() {
   const [articles, setArticles] = useState<Article[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // 加载文章数据
+    // Load articles data
     fetch('/data/articles.json')
-      .then(res => res.json())
-      .then((data: Article[]) => {
-        setArticles(data)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('无法加载文章数据')
+        }
+        return res.json()
+      })
+      .then((data: ArticlesManifest) => {
+        setArticles(data.articles || [])
         setLoading(false)
       })
       .catch(err => {
@@ -59,12 +70,13 @@ function Articles() {
           </div>
         ) : (
           articles.map((article) => (
-            <div
+            <Link
               key={article.id}
-              className="mb-6 bg-card/50 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-[0_4px_16px_rgba(0,0,0,0.15)] hover:border-primary/30 transition-all duration-300 hover:shadow-[0_8px_24px_rgba(59,130,246,0.15)]"
+              to={`/article/${article.id}`}
+              className="block mb-6 bg-card/50 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-[0_4px_16px_rgba(0,0,0,0.15)] hover:border-primary/30 transition-all duration-300 hover:shadow-[0_8px_24px_rgba(59,130,246,0.15)] hover:-translate-y-0.5 no-underline"
             >
               <div className="flex items-start justify-between mb-3">
-                <h2 className="text-xl font-bold text-text-primary flex-1">
+                <h2 className="text-xl font-bold text-text-primary flex-1 hover:text-primary transition-colors duration-300">
                   {article.title}
                 </h2>
                 <span className="text-xs text-text-muted ml-4 whitespace-nowrap">
@@ -86,7 +98,14 @@ function Articles() {
               <div className="text-text-muted text-sm leading-relaxed">
                 {article.summary}
               </div>
-            </div>
+
+              <div className="mt-4 text-xs text-text-muted flex items-center gap-2">
+                <span>点击查看完整内容</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </Link>
           ))
         )}
       </div>
