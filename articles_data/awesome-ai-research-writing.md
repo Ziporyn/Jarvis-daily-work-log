@@ -1,5 +1,6 @@
 ---
 date: 2026-02-03
+url: https://github.com/Leey21/awesome-ai-research-writing
 ---
 
 # Awesome AI Research Writing - AI研究写作资源集合

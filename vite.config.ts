@@ -17,6 +17,12 @@ interface ArticleEntry {
   tags: string[]
 }
 
+interface ArticleContent {
+  date: string
+  content: string
+  url?: string
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   build: {
@@ -189,10 +195,14 @@ export default defineConfig({
               tags
             })
 
+            // Extract URL from frontmatter
+            const url = attributes.url as string | undefined
+
             // Generate individual article JSON file
-            const articleContent = {
+            const articleContent: ArticleContent = {
               date: dateStr,
-              content: body.trim()
+              content: body.trim(),
+              url
             }
             fs.writeFileSync(
               path.join(distArticlesDir, `${id}.json`),

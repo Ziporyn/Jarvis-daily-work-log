@@ -5,6 +5,7 @@ import Header from './components/Header'
 interface ArticleContent {
   date: string
   content: string
+  url?: string
 }
 
 function ArticleDetail() {
@@ -138,7 +139,7 @@ function ArticleDetail() {
       <Header lastUpdated={formatDate(article.date)} />
 
       <div className="bg-card/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-[0_4px_16px_rgba(0,0,0,0.15)]">
-        <div className="mb-6 pb-6 border-b border-white/10">
+        <div className="mb-6 pb-6 border-b border-white/10 flex items-center justify-between">
           <Link
             to="/articles"
             className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-primary transition-colors duration-300"
@@ -148,6 +149,20 @@ function ArticleDetail() {
             </svg>
             返回文章列表
           </Link>
+
+          {article.url && (
+            <a
+              href={article.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary/20 hover:bg-primary/30 border border-primary/40 rounded-full text-primary no-underline text-sm font-medium transition-all duration-300 shadow-[0_4px_16px_rgba(59,130,246,0.2)] hover:shadow-[0_8px_24px_rgba(59,130,246,0.3)] hover:-translate-y-0.5"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6H10" />
+              </svg>
+              原文链接
+            </a>
+          )}
         </div>
 
         <div
