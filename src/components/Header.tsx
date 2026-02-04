@@ -69,11 +69,11 @@ export default function Header({ lastUpdated, currentPage = 'log' }: HeaderProps
       {/* 页面标题 */}
       <div className="flex items-center justify-center gap-5">
         <div className="w-[70px] h-[70px] bg-gradient-to-br from-primary to-purple-500 rounded-[18px] flex items-center justify-center text-[35px] shadow-[0_20px_40px_rgba(59,130,246,0.2),0_0_60px_rgba(139,92,246,0.1)]">
-          🤖
+          {currentPage === 'articles' ? '📚' : '🤖'}
         </div>
         <div>
           <h1 className="text-text-primary text-2xl font-bold tracking-tight mb-2">
-            Jarvis's Daily Work Log
+            {currentPage === 'articles' ? "Jarvis Notes" : "Jarvis's Daily Work Log"}
           </h1>
           <p className="text-text-muted text-sm">
             最后更新：<span>{lastUpdated}</span>

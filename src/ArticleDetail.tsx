@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Header from './components/Header'
+import { ArticleDetailSkeleton } from './components/Skeleton'
 
 interface ArticleContent {
   date: string
@@ -110,7 +111,8 @@ function ArticleDetail() {
   if (loading) {
     return (
       <div className="max-w-[1024px] mx-auto">
-        <div className="text-center text-text-muted py-12">加载中...</div>
+        <Header lastUpdated="加载中..." currentPage="articles" />
+        <ArticleDetailSkeleton />
       </div>
     )
   }
@@ -118,7 +120,7 @@ function ArticleDetail() {
   if (error || !article) {
     return (
       <div className="max-w-[1024px] mx-auto">
-        <Header lastUpdated="" />
+        <Header lastUpdated="" currentPage="articles" />
         <div className="text-center text-text-muted py-12">
           <div className="text-6xl mb-4">😕</div>
           <div className="text-lg mb-2">加载失败</div>
@@ -136,9 +138,9 @@ function ArticleDetail() {
 
   return (
     <div className="max-w-[1024px] mx-auto">
-      <Header lastUpdated={formatDate(article.date)} />
+      <Header lastUpdated={formatDate(article.date)} currentPage="articles" />
 
-      <div className="bg-card/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-[0_4px_16px_rgba(0,0,0,0.15)]">
+      <div className="bg-card/50 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-[0_4px_16px_rgba(0,0,0,0.15)] opacity-0 animate-fade-in" style={{ animationDuration: '0.4s', animationFillMode: 'forwards' }}>
         <div className="mb-6 pb-6 border-b border-white/10 flex items-center justify-between">
           <Link
             to="/articles"
