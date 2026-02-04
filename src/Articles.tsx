@@ -17,6 +17,7 @@ interface ArticlesManifest {
 
 function Articles() {
   const [articles, setArticles] = useState<Article[]>([])
+  const [lastUpdated, setLastUpdated] = useState<string>('')
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -30,6 +31,7 @@ function Articles() {
       })
       .then((data: ArticlesManifest) => {
         setArticles(data.articles || [])
+        setLastUpdated(data.lastUpdated || '')
         setLoading(false)
       })
       .catch(err => {
@@ -59,7 +61,7 @@ function Articles() {
 
   return (
     <div className="max-w-[1024px] mx-auto">
-      <Header lastUpdated="持续更新中" currentPage="articles" />
+      <Header lastUpdated={lastUpdated ? formatDate(lastUpdated) : '暂无更新'} currentPage="articles" />
 
       <div id="articles-container">
         {articles.length === 0 ? (
