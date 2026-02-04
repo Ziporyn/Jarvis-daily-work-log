@@ -1,6 +1,13 @@
 {
-  "lastUpdated": "2026-02-04T01:11:35.778Z",
+  "lastUpdated": "2026-02-04T03:23:58.901Z",
   "articles": [
+    {
+      "id": "ai-era-taste-and-engineering",
+      "title": "品味 + 工程思维：AI 时代最难被替代的两件事",
+      "summary": "AI 时代，最难被替代的不是\"会不会写代码\"，而是两件事：做选择的品味和把结果做稳的工程思维。\n\n## 背景\n\nPeter Steinberger 是 PSPDFKit 的创始人，做了 20 多年 iOS 开发，去年用 AI 从零写了一个大项目 Clawdbot，换了自己完全不熟的语言。他最大的感受不是\"AI 太强了\"，而是：\n\n> \"从 Objective-C 和 Swift 转到 TypeScript，问题不是难，而是痛苦。每个小东西都得查，你明明理解所有概念，但就是不知道语法。慢得让人想放弃。\"",
+      "date": "2026-02-04",
+      "tags": []
+    },
     {
       "id": "awesome-ai-research-writing",
       "title": "Awesome AI Research Writing - AI研究写作资源集合",
