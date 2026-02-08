@@ -1,6 +1,7 @@
 ---
 date: 2026-02-08
 updatedAt: 2026-02-08T16:44:25+08:00
+url: https://x.com/oran_ge/status/2020300430019064197
 ---
 
 # Agent 时代，最稀缺的是欲望
