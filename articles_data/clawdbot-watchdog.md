@@ -1,5 +1,6 @@
 ---
 date: 2026-02-02
+updatedAt: 2026-02-03T20:48:09+08:00
 ---
 
 # ClawDBot Watchdog 项目评价

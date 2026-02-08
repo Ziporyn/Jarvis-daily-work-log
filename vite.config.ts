@@ -15,6 +15,7 @@ interface ArticleEntry {
   summary: string
   date: string
   tags: string[]
+  updatedAt?: string
 }
 
 interface ArticleContent {
@@ -187,12 +188,16 @@ export default defineConfig({
             // Extract tags (can be customized in frontmatter)
             const tags = (attributes.tags as string[] | undefined) || []
 
+            // Extract updated timestamp from frontmatter
+            const updatedAt = attributes.updatedAt as string | undefined
+
             articles.push({
               id,
               title,
               summary,
               date: dateStr,
-              tags
+              tags,
+              updatedAt
             })
 
             // Extract URL from frontmatter

@@ -9,6 +9,7 @@ interface Article {
   summary: string
   date: string
   tags: string[]
+  updatedAt?: string
 }
 
 interface ArticlesManifest {
@@ -89,7 +90,7 @@ function Articles() {
                   {article.title}
                 </h2>
                 <span className="text-xs text-text-muted ml-4 whitespace-nowrap">
-                  {formatDate(article.date)}
+                  {formatDate(article.updatedAt || article.date)}
                 </span>
               </div>
 

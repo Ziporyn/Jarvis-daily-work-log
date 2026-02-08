@@ -1,5 +1,6 @@
 ---
 date: 2026-02-03
+updatedAt: 2026-02-03T20:56:25+08:00
 url: https://github.com/Leey21/awesome-ai-research-writing
 ---
 

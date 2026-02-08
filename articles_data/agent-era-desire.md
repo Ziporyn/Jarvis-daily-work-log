@@ -1,3 +1,8 @@
+---
+date: 2026-02-08
+updatedAt: 2026-02-08T16:44:25+08:00
+---
+
 # Agent 时代，最稀缺的是欲望
 
 **来源：** Orange AI on X (@oran_ge)

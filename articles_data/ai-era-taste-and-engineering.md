@@ -1,5 +1,6 @@
 ---
 date: 2026-02-04
+updatedAt: 2026-02-04T11:24:13+08:00
 url: https://x.com/dotey/status/2018863908153385290
 ---
 
